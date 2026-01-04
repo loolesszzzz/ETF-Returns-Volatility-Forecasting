@@ -74,20 +74,48 @@ Derived datasets include:
 ### Volatility
 
 * Volatility displays strong persistence and clustering
-* Simple benchmarks perform competitively at short horizons
-* GARCH captures conditional heteroskedasticity and reacts to shocks more rapidly than smoothing models
+* Simple benchmarks perform competitively at short horizons due to volatility's random-walk-like behaviour
+* GARCH captures conditional heteroskedasticity and responds rapidly to shocks, making it valuable for risk monitoring despite higher point forecast error
 
 **Implication**: Volatility forecasts are useful for risk monitoring, stress testing, and capital allocation decisions.
 
 ---
 
-## Visual Summary
+## Model Performance Comparison
 
-### Volatility Forecast Comparison
-![Volatility Forecasts](outputs/figures/volatility_forecast_comparison.png)
+### Returns Forecasting
+
+| Model | MAE | RMSE | vs Baseline |
+|-------|-----|------|-------------|
+| Baseline Mean | 0.00810 | 0.01103 | — |
+| ARIMA(1,0,1) | 0.00826 | 0.01116 | **-1.9%** ↓ |
+
+**Key Takeaway**: ARIMA provides no improvement. Daily return forecasts collapse toward zero, highlighting the dominance of noise over signal. Not suitable for directional trading.
+
+### Volatility Forecasting
+
+| Model | MAE | RMSE | vs Baseline |
+|-------|-----|------|-------------|
+| Naïve Persistence | 0.000351 | 0.000592 | — |
+| ETS | 0.000351 | 0.000592 | **0%** |
+| GARCH(1,1) | 0.001493 | 0.002026 | **-325%** ↓ |
+
+**Key Takeaway**: Simple persistence benchmarks excel at one-day horizons. GARCH shows higher forecast error due to comparing conditional variance forecasts against smoothed realised volatility (metric mismatch). However, GARCH's responsiveness to shocks makes it valuable for **risk scenario analysis and tail event monitoring**.
+
+---
+
+## Visual Summary
 
 ### Return Forecast Comparison
 ![Return Forecasts](outputs/figures/return_forecast_comparison.png)
+**What this shows**: Forecasts collapse toward zero. Out-of-sample predictability of daily returns is negligible. This confirms that daily equity returns are dominated by noise rather than predictable patterns.
+
+### Volatility Forecast Comparison
+![Volatility Forecasts](outputs/figures/volatility_forecast_comparison.png)
+**What this shows**:
+* ETS behaves like a smoother — excellent at tracking medium-term regimes, low noise, high stability. Lags during sudden jumps.
+* GARCH behaves like a shock detector — responds immediately to large return shocks, captures clustering and conditional heteroskedasticity. Noisier in RMSE terms because it forecasts risk, not smooth averages.
+* Both models capture volatility structure far better than return models capture direction.
 
 ---
 
