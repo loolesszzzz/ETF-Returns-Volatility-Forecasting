@@ -181,8 +181,8 @@ The complete SQL schema and queries are available in the `sql/` directory. The P
 ETF-Returns-Volatility-Forecasting/
 │
 ├── data/
-│   ├── raw/                 # Raw market data
-│   └── processed/           # Cleaned returns and realised volatility
+│   ├── raw/                       # Raw market data
+│   └── processed/                 # Cleaned returns and realised volatility
 │
 ├── notebooks/
 │   ├── 01_data_ingestion_and_cleaning.ipynb
@@ -194,11 +194,11 @@ ETF-Returns-Volatility-Forecasting/
 │   └── 07_business_interpretation_and_forecast.ipynb
 │
 ├── src/
-│   ├── data_utils.py        # Reusable data-loading utilities
-│   ├── diagnostics.py       # Diagnostic and statistical helpers
-│   ├── plotting.py          # Reusable plotting functions
-│   ├── evaluation.py        # Shared evaluation logic
-│   └── load_data_to_postgres.py  # Database loading script
+│   ├── data_utils.py              # Reusable data-loading utilities
+│   ├── diagnostics.py             # Diagnostic and statistical helpers
+│   ├── plotting.py                # Reusable plotting functions
+│   ├── evaluation.py              # Shared evaluation logic
+│   └── load_data_to_postgres.py   # Database loading script
 │
 ├── sql/
 │   ├── 01_latest_forecast.sql
@@ -211,9 +211,9 @@ ETF-Returns-Volatility-Forecasting/
 │   └── ETF_Volatility_Dashboard.pbix
 │
 ├── outputs/
-│   ├── figures/             # Final visualisations
-│   ├── tables/              # Model comparison tables
-│   └── forecasts/           # Saved forecast outputs
+│   ├── figures/                   # Final visualisations
+│   ├── tables/                    # Model comparison tables
+│   └── forecasts/                 # Saved forecast outputs
 │
 ├── requirements.txt
 └── README.md
