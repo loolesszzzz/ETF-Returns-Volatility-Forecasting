@@ -76,22 +76,28 @@ Derived datasets include:
 ## Model Performance Comparison
 
 ### Returns Forecasting
-
-| Model | MAE | RMSE | Performance vs Baseline |
-| :--- | :--- | :--- | :--- |
-| Baseline Mean | 0.00810 | 0.01103 | Reference |
-| ARIMA(1,0,1) | 0.00826 | 0.01116 | -1.9% (No Improvement) |
+| Model | MAE | RMSE | vs Baseline |
+|-------|-----|------|-------------|
+| Baseline Mean | 0.008104 | 0.011026 | — |
+| ARIMA | 0.008217 | 0.011114 | **-1.40%** ↓ |
 
 **Key Takeaway**: ARIMA provides no improvement. Daily return forecasts collapse toward zero, highlighting the dominance of noise over signal. Not suitable for directional trading.
 
 ### Volatility Forecasting
-| Model | MAE | RMSE | Utility |
-| :--- | :--- | :--- | :--- |
-| Naïve Persistence | 0.000351 | 0.000592 | Best for stable periods |
-| ETS (Smoothing) | 0.000351 | 0.000592 | Best for regime tracking |
-| **GARCH(1,1)** | 0.001493 | 0.002026 | **Best for Shock Response** |
+| Model | MAE | RMSE | MAE Ann (%) | RMSE Ann (%) |
+|-------|-----|------|-------------|--------------|
+| Naïve Persistence | 0.000351 | 0.000592 | 0.56% | 0.94% |
+| ETS | 0.000351 | 0.000592 | 0.56% | 0.94% |
+| GARCH (Daily) | 0.001444 | 0.001963 | 2.29% | 3.12% |
+| GARCH (21d Smoothed) | 0.000974 | 0.001222 | 1.55% | 1.94% |
+| **Improvement (GARCH 21d vs Naïve)** | **-177.33%** ↓ | **-106.44%** ↓ | **—** | **—** |
 
-**Key Takeaway**: Simple persistence benchmarks excel at one-day horizons. GARCH shows higher forecast error due to comparing conditional variance forecasts against smoothed realised volatility (metric mismatch). However, GARCH's responsiveness to shocks makes it valuable for **risk scenario analysis and tail event monitoring**. Meanwhile GARCH is the only model that successfully identifies **Conditional Heteroskedasticity**. In a Risk Analyst context, GARCH is the "Safety Alarm"—it is preferred for its ability to flag rising risk rapidly, even if its exact point estimate is noisier.
+**Key Takeaway**: Daily GARCH forecasts conditional one-day-ahead variance, while realised volatility is smoothed over 21 days (horizon mismatch). When GARCH forecasts are smoothed over the same 21-day window, forecast accuracy improves substantially (from -311% to -177% vs baseline), though still underperforming simple persistence at this horizon. However, GARCH's ability to respond to shocks 1-2 days faster than benchmarks makes it valuable for **detecting regime changes and tail risk**, even when point forecast accuracy is lower.
+
+**Business Interpretation**: 
+- **Naïve/ETS**: Best for stable periods and short-term tracking (lowest error)
+- **GARCH (Daily)**: Best for shock detection and early warning signals (fastest response to volatility spikes)
+- **GARCH (21d Smoothed)**: Best for medium-term risk budgeting aligned with rolling volatility targets (balances accuracy and responsiveness)
 
 ---
 
