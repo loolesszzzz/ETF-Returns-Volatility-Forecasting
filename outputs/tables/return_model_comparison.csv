@@ -1,4 +1,0 @@
-Model,MAE,RMSE
-Baseline Mean,0.008104,0.011026
-ARIMA,0.008217,0.011114
-Improvement,-1.40%,-0.80%
