@@ -1,0 +1,6 @@
+Model,MAE,RMSE,MAE_Ann (%),RMSE_Ann (%)
+Naive,0.000351,0.000592,0.56%,0.94%
+ETS,0.000351,0.000592,0.56%,0.94%
+GARCH (Daily),0.001444,0.001963,2.29%,3.12%
+GARCH (21d Smoothed),0.000974,0.001222,1.55%,1.94%
+Improvement (GARCH 21d vs Naive),-177.33%,-106.44%,-,-
